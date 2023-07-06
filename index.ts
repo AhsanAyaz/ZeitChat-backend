@@ -3,7 +3,7 @@ import { deleteAll, loadMessages, postMessage } from './db';
 import cors from 'cors';
 
 const app: Application = express();
-const port = 3000;
+const port = process.env.port || 3000;
 const server = require('http').createServer(app);
 const io = require("socket.io")(server, {
   cors: {
@@ -51,5 +51,5 @@ app.delete('/', async (req: Request, res: Response) => {
 
 });
 
-server.listen(3001);
-app.listen(3000);
+server.listen(Number(port) + 1);
+app.listen(port);
