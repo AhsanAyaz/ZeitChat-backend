@@ -16,7 +16,7 @@ const express_1 = __importDefault(require("express"));
 const db_1 = require("./db");
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
-const port = 3000;
+const port = process.env.port || 3000;
 const server = require('http').createServer(app);
 const io = require("socket.io")(server, {
     cors: {
@@ -52,5 +52,7 @@ app.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 app.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
-server.listen(3001);
-app.listen(3000);
+server.listen(Number(port) + 1);
+app.listen(port, () => {
+    console.log("listening to port: ", port);
+});

@@ -52,4 +52,6 @@ app.delete('/', async (req: Request, res: Response) => {
 });
 
 server.listen(Number(port) + 1);
-app.listen(port);
+app.listen(port, () => {
+  console.log("listening to port: ", port);
+});
