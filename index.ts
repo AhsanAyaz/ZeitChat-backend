@@ -24,7 +24,6 @@ io.on("connection", (socket: any) => {
     console.log("Message received: ", newMessage);
     io.emit('Message sent');
     console.log("Message sent");
-    io.emit("clientCount", io.eio.clientsCount);
   });
 
   socket.on('delete all', () => {
@@ -34,7 +33,7 @@ io.on("connection", (socket: any) => {
 
   socket.on("disconnect", () => {
     console.log("Client has disconnected");
-    io.emit("clientCount", io.eio.clientsCount - 1);
+
   });
 });
 
@@ -52,5 +51,5 @@ app.delete('/', async (req: Request, res: Response) => {
 
 });
 
-server.listen('https://zeitchat.netlify.app/');
-app.listen('https://zeitchat.netlify.app/');
+server.listen(3001);
+app.listen(3000);
