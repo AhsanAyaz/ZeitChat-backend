@@ -9,13 +9,6 @@ const COLLECTION = 'Messages';
 const url = `mongodb+srv://Mob-TBD:${PASSWORD}@tbd.9kb2pyc.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(url);
 
-// const connectToDb = async () => {
-//   await client.connect();
-//   const db = client.db(DATABASE);
-//   const collection = db.collection(COLLECTION);
-//   return collection;
-// };
-
 export const getMessage = async () => {
   await client.connect();
   const db = client.db(DATABASE);
@@ -41,4 +34,12 @@ export const postNewMessage = async (message: string, user: string) => {
 
   return newMessage;
 };
+
+export const clearDb = async () => {
+  await client.connect();
+  const db = client.db(DATABASE);
+  const collection = db.collection(COLLECTION);
+  const res = await collection.deleteMany();
+  return res;
+}
 
