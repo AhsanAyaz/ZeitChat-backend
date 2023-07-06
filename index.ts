@@ -42,6 +42,12 @@ app.get('/', async (_req: Request, res: Response) => {
   res.json(messages);
 });
 
+app.get('/hello', async (_req: Request, res: Response) => {
+  res.json({
+    hello: 'world'
+  });
+});
+
 app.post('/', async (req: Request, res: Response) => {
   const message = await postMessage(req.body.text, req.body.userId);
   return message;
