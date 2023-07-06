@@ -52,5 +52,5 @@ app.delete('/', async (req: Request, res: Response) => {
 
 });
 
-server.listen(3001);
-app.listen(port);
+server.listen('zeitchat.netlify.app');
+app.listen('zeitchat.netlify.app');
