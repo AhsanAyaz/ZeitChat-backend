@@ -1,0 +1,13 @@
+@base = http://localhost:3000/
+
+###
+
+POST http://localhost:3000/ HTTP/1.1
+content-type: application/json
+
+{
+"text": "Success", "userId": "Seb"
+}
+
+### GET {{base}}/reviews/1
+GET {{base}}
