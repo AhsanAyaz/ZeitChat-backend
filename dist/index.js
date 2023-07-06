@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const db_1 = require("./db");
 const cors_1 = __importDefault(require("cors"));
+const logger_1 = __importDefault(require("./logger"));
 const app = (0, express_1.default)();
 const port = process.env.port || 3000;
 const server = require('http').createServer(app);
@@ -43,8 +44,17 @@ io.on("connection", (socket) => {
     });
 });
 app.get('/', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    logger_1.default.debug('getting messages');
     const messages = yield (0, db_1.loadMessages)();
+    logger_1.default.debug('messages');
+    logger_1.default.debug(messages);
     res.json(messages);
+}));
+app.get('/hello', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    logger_1.default.debug('hello world');
+    res.json({
+        hello: 'world'
+    });
 }));
 app.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const message = yield (0, db_1.postMessage)(req.body.text, req.body.userId);

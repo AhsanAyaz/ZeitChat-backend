@@ -1,9 +1,10 @@
 import express, { Request, Response, Application } from 'express';
 import { deleteAll, loadMessages, postMessage } from './db';
 import cors from 'cors';
+import logger from './logger';
 
 const app: Application = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 const server = require('http').createServer(app);
 const io = require("socket.io")(server, {
   cors: {
@@ -38,11 +39,15 @@ io.on("connection", (socket: any) => {
 });
 
 app.get('/', async (_req: Request, res: Response) => {
+  logger.debug('getting messages')
   const messages = await loadMessages();
+  logger.debug('messages');
+  logger.debug(messages);
   res.json(messages);
 });
 
 app.get('/hello', async (_req: Request, res: Response) => {
+  logger.debug('hello world');
   res.json({
     hello: 'world'
   });
