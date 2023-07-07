@@ -62,11 +62,6 @@ app.delete('/', async (req: Request, res: Response) => {
 
 });
 
-const ioPort = process.env.PORT || Number(port) + 1;
-
-server.listen(ioPort, () => {
-  console.log("socket listening to port: ", ioPort);
-});
-app.listen(port, () => {
-  console.log("listening to port: ", port);
+server.listen(port, () => {
+  console.log("server listening to port: ", port);
 });
