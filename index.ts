@@ -18,7 +18,6 @@ app.use(cors());
 
 io.on("connection", (socket: any) => {
   console.log("New client connected");
-  socket.emit('Client', socket);
 
   socket.on("newMessage", (newMessage: string) => {
 
@@ -33,6 +32,7 @@ io.on("connection", (socket: any) => {
 
   socket.on("disconnect", () => {
     console.log("Client has disconnected");
+
   });
 });
 
@@ -54,6 +54,10 @@ app.get('/hello', async (_req: Request, res: Response) => {
 app.post('/', async (req: Request, res: Response) => {
   const message = await postMessage(req.body.text, req.body.userId);
   res.json(message).status(201);
+});
+
+app.delete('/', async (req: Request, res: Response) => {
+
 });
 
 server.listen(port, () => {
