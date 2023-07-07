@@ -19,17 +19,15 @@ app.use(cors());
 io.on("connection", (socket: any) => {
   console.log("New client connected");
 
-  io.emit("clientCount", io.eio.clientsCount);
-
   socket.on("newMessage", (newMessage: string) => {
-    console.log("Message received: ", newMessage);
-    io.emit('Message sent');
-    console.log("Message sent");
+
+    io.emit('Message sent', newMessage);
+
   });
 
   socket.on('delete all', () => {
     deleteAll();
-    io.emit('Message sent');
+    io.emit('Deleted');
   });
 
   socket.on("disconnect", () => {
@@ -39,11 +37,11 @@ io.on("connection", (socket: any) => {
 });
 
 app.get('/', async (_req: Request, res: Response) => {
-  logger.debug('getting messages')
+  logger.debug('getting messages');
   const messages = await loadMessages();
   logger.debug('messages');
   logger.debug(messages);
-  res.json(messages);
+  res.json(messages).status(200);
 });
 
 app.get('/hello', async (_req: Request, res: Response) => {
@@ -55,7 +53,7 @@ app.get('/hello', async (_req: Request, res: Response) => {
 
 app.post('/', async (req: Request, res: Response) => {
   const message = await postMessage(req.body.text, req.body.userId);
-  return message;
+  res.json(message).status(201);
 });
 
 app.delete('/', async (req: Request, res: Response) => {
